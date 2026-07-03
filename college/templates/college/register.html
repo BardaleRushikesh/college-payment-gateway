@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    <!-- This links your style.css file -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- This container div centers your form and applies the white card background -->
+    <div class="form-container">
+        <h1>Student Registration Form</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+<!-- RAZORPAY PAYMENT SCRIPT -->
+    {% if razorpay_order_id %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "{{ razorpay_merchant_key }}",
+            "amount": "{{ razorpay_amount }}",
+            "currency": "{{ currency }}",
+            "name": "College Project",
+            "description": "Student Registration Fee",
+            "order_id": "{{ razorpay_order_id }}",
+            "handler": function (response){
+                // This function runs automatically when payment is successful
+                // It creates a hidden form and sends the payment data to your success view
+                var form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/payment-success/";
+
+                var input1 = document.createElement("input");
+                input1.type = "hidden";
+                input1.name = "razorpay_payment_id";
+                input1.value = response.razorpay_payment_id;
+                form.appendChild(input1);
+
+                var input2 = document.createElement("input");
+                input2.type = "hidden";
+                input2.name = "razorpay_order_id";
+                input2.value = response.razorpay_order_id;
+                form.appendChild(input2);
+
+                document.body.appendChild(form);
+                form.submit();
+            },
+            "theme": {
+                "color": "#007bff"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+
+        // Triggers the popup to open immediately
+        rzp1.open();
+
+        rzp1.on('payment.failed', function (response){
+            alert("Payment Failed: " + response.error.description);
+        });
+    </script>
+    {% endif %}
+</body>
+</html>
