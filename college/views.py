@@ -61,4 +61,21 @@ def payment_success(request):
         student.razorpay_payment_id = payment_id
         student.save()
 
-        return HttpResponse("Payment Successful! Your registration is complete and saved to the database.")
+        # DEFINE THE CONTEXT VARIABLE HERE
+        context = {
+            'order_id': order_id,
+            'payment_id': payment_id,
+            'amount': "500.00" # Change this if your course fee is different
+        }
+
+        # Point to the college subfolder path
+        return render(request, 'college/success.html', context)
+
+def privacy_policy(request):
+    return render(request, 'college/privacy_policy.html')
+
+def terms_conditions(request):
+    return render(request, 'college/terms.html')
+
+def refund_policy(request):
+    return render(request, 'college/refund_policy.html')

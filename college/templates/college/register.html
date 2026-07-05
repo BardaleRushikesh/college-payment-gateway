@@ -10,16 +10,55 @@
 
     <!-- This container div centers your form and applies the white card background -->
     <div class="form-container">
-        <h1>Student Registration Form</h1>
+        <h1>Academic Admission & Fees Portal</h1>
 
         <form method="POST">
-            {% csrf_token %}
+        {% csrf_token %}
 
-            {{ form.as_p }}
+        <div class="form-group">
+            <label for="id_first_name">First name:</label>
+            {{ form.first_name }}
+        </div>
 
-            <button type="submit">Register</button>
-        </form>
-    </div>
+        <div class="form-group">
+            <label for="id_last_name">Last name:</label>
+            {{ form.last_name }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_age">Age:</label>
+            {{ form.age }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_phone">Phone:</label>
+            {{ form.phone }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_department">Department:</label>
+            {{ form.department }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_course">Course:</label>
+            {{ form.course }}
+        </div>
+
+        <button type="submit" class="register-btn">Register</button>
+
+        <div class="policy-footer" style="display: flex; justify-content: space-between; gap: 8px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
+    <a href="/privacy-policy/" style="flex: 1; text-align: center; font-size: 11px; font-weight: 500; color: #4a5568; background-color: #f7fafc; padding: 8px 4px; border: 1px solid #e2e8f0; border-radius: 6px; text-decoration: none;">Privacy Policy</a>
+    <a href="/terms/" style="flex: 1; text-align: center; font-size: 11px; font-weight: 500; color: #4a5568; background-color: #f7fafc; padding: 8px 4px; border: 1px solid #e2e8f0; border-radius: 6px; text-decoration: none;">Terms & Conditions</a>
+    <a href="/refund-policy/" style="flex: 1; text-align: center; font-size: 11px; font-weight: 500; color: #4a5568; background-color: #f7fafc; padding: 8px 4px; border: 1px solid #e2e8f0; border-radius: 6px; text-decoration: none;">Refund Policy</a>
+</div>
+    </form>
+</div>
 <!-- RAZORPAY PAYMENT SCRIPT -->
     {% if razorpay_order_id %}
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

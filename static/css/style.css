@@ -60,8 +60,10 @@ button, input[type="submit"] {
 button:hover, input[type="submit"]:hover {
     background-color: #0056b3;
 
-    /* Container to center and separate the buttons from the Register button */
-.policy-footer {
+button:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+
+ .policy-footer {
     display: flex;
     justify-content: space-between;
     gap: 8px;
